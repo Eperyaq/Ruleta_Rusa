@@ -1,6 +1,9 @@
 import java.awt.Cursor
 import kotlin.math.E
 
+//añadir unas rondas cada vez que se gastan las balas de la escopeta
+//Se que hay mucho por mejorar diego no me mates ;)
+
 class Crupier(var nombre:String, var vidasCru:Int){
 
     fun disparar(escopeta: Escopeta, jugador: Jugador) {
@@ -15,7 +18,7 @@ class Crupier(var nombre:String, var vidasCru:Int){
         }
     }
     fun autoDisparar(crupier: Crupier, escopeta: Escopeta){
-        if (escopeta.numeroBalasCargador == escopeta.balasVacias){ //no dispara asasddd
+        if (escopeta.numeroBalasCargador == escopeta.balasVacias){ //no dispara
             println("La bala ha fallado")
         }else if (escopeta.numeroBalasCargador == escopeta.balasCargadas){
             println("La bala ha impactado")
@@ -33,9 +36,7 @@ class Escopeta(jugador: Jugador, crupier: Crupier){
     var balasVacias = numeroBalasCargador - balasCargadas//seria el resto de las balas que quedan
 
     init {
-        println("La escopeta tiene en el cargador $numeroBalasCargador")
-        println("Cargadas hay $balasCargadas")
-        println("Falsas hay $balasVacias")
+
     }
 
 }
@@ -77,9 +78,12 @@ fun main() {
     var escopeta = Escopeta(jugador, crupier)
 
 
-    var juegoOk = true
+    var juegoOk = true // tengo que encontrar la manera de pasar esta variable a la funcion fin juego para que se termine el bucle
 
     while (juegoOk){
+
+        //todo esto correspondería a una sola ronda, hasta que se quede sin balas la escopeta, me gustaría hacer que la info de las balas solo saliese al principio y despues solo dijese cuantas balas quedan.
+        informacionPrincipal(escopeta)
         turnoCrupier(crupier, jugador, escopeta)
         finJuego(jugador, crupier)
         turnoJugador(jugador, crupier, escopeta)
@@ -96,7 +100,7 @@ fun turnoCrupier(crupier: Crupier, jugador: Jugador, escopeta: Escopeta){
         var opcion= readln().toInt()
 
         when (opcion) {
-            1 -> crupier.disparar(escopeta, jugador) //El IDE me pide to eso pero no entiendo porque
+            1 -> crupier.disparar(escopeta, jugador)
             2 -> crupier.autoDisparar(crupier, escopeta)
             else -> println("Pierdes turno por gracioso")
         }
@@ -129,8 +133,8 @@ fun turnoJugador(jugador: Jugador, crupier: Crupier, escopeta: Escopeta){
 
 
 
-fun finJuego(jugador: Jugador, crupier: Crupier): Boolean {
-    println()
+fun finJuego(jugador: Jugador, crupier: Crupier): Boolean {//No termina el juego porque no estas dandole valor a la variable simplemente retornas un booleano
+    println() //deberia pasarle por parametros la variable que me controla el bucle para poder retornarla ya modificada desde aqui??
     if (jugador.vidasPlayer <= 0 ){
         println("Mala suerte...")
         return false
@@ -145,7 +149,7 @@ fun finJuego(jugador: Jugador, crupier: Crupier): Boolean {
 }
 
 
-fun informacionPrincipal(escopeta: Escopeta){
+fun informacionPrincipal(escopeta: Escopeta){ // no se usa aun
     println("Hay ${escopeta.numeroBalasCargador} balas en el cargador")
     println("de las ${escopeta.numeroBalasCargador} hay ${escopeta.balasCargadas} balas que matan y ${escopeta.balasVacias} balas que no matan.")
 }
