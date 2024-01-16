@@ -15,7 +15,7 @@ class Crupier(var nombre:String, var vidasCru:Int){
         }
     }
     fun autoDisparar(crupier: Crupier, escopeta: Escopeta){
-        if (escopeta.numeroBalasCargador == escopeta.balasVacias){ //no dispara
+        if (escopeta.numeroBalasCargador == escopeta.balasVacias){ //no dispara asas
             println("La bala ha fallado")
         }else if (escopeta.numeroBalasCargador == escopeta.balasCargadas){
             println("La bala ha impactado")
